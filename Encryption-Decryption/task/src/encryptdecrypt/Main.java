@@ -1,36 +1,25 @@
 package encryptdecrypt;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String option = scanner.nextLine();
         String text = scanner.nextLine();
         int number = scanner.nextInt();
 
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        List<String> alphabetArray = Arrays.asList(alphabet.split(""));
-        StringBuilder encrypt = new StringBuilder();
-
-        for (int i = 0; i < text.split("").length; i++) {
-            char c = text.charAt(i);
-            int indexOf = alphabetArray.indexOf(String.valueOf(c));
-
-            if (indexOf < 0) {
-                encrypt.append(c);
-                continue;
-            }
-
-            if (indexOf + number > alphabetArray.size() - 1) {
-                encrypt.append(alphabetArray.get(indexOf + number - alphabetArray.size()));
-            } else {
-                encrypt.append(alphabetArray.get(indexOf + number));
-            }
+        if (option.compareTo("enc") == 0) {
+            Encryption encryption = new Encryption();
+            System.out.println(encryption.encrypt(text,
+                                                  number));
+        } else {
+            Decryption decryption = new Decryption();
+            System.out.println(decryption.decrypt(text,
+                                                  number));
         }
 
-        System.out.println(encrypt);
+
     }
 }
