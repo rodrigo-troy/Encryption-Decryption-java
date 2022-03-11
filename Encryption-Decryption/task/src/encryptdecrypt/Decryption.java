@@ -1,8 +1,5 @@
 package encryptdecrypt;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * $ Project: Encryption-Decryption
@@ -13,23 +10,16 @@ import java.util.List;
 public class Decryption {
     public String decrypt(String text,
                           int number) {
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        List<String> alphabetArray = Arrays.asList(alphabet.split(""));
         StringBuilder decrypt = new StringBuilder();
 
-        for (int i = 0; i < text.split("").length; i++) {
-            char c = text.charAt(i);
-            int indexOf = alphabetArray.indexOf(String.valueOf(c));
+        for (int i = 0; i < text.length(); i++) {
+            int unicode = Character.codePointAt(text,
+                                                i);
 
-            if (indexOf < 0) {
-                decrypt.append(c);
-                continue;
-            }
-
-            if (indexOf - number > 0) {
-                decrypt.append(alphabetArray.get(indexOf - number));
+            if (unicode - number >= 0) {
+                decrypt.append(Character.toString(unicode - number));
             } else {
-                decrypt.append(alphabetArray.get(number + alphabetArray.size() - indexOf));
+                decrypt.append(Character.toString(255 + (unicode - number)));
             }
         }
 
